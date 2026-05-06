@@ -1,0 +1,531 @@
+/* 1. VARIÁVEIS DE AMBIENTE (Cérebro do Tema) */
+:root {
+  /* Modo Claro */
+  --bg-dashboard: #f3f4f6;
+  --bg-sidebar: #ffffff;
+  --bg-chat-container: #f8f9fa;
+  --bg-chat-input: #ffffff;
+  --card-bg: #ffffff;
+  
+  --text-main: #1f2937;
+  --text-muted: #6b7280;
+  --text-on-primary: #ffffff;
+  
+  --input-bg: #ffffff;
+  --input-border: #e5e7eb;
+  
+  --primary-color: #3b82f6;
+  --primary-hover: #2563eb;
+  --sidebar-active: #eff6ff;
+
+  --bubble-user: #3b82f6;
+  --bubble-model: #e9ecef;
+  --bubble-model-text: #333333;
+  
+  --danger: #dc2626;
+  --danger-light: #fee2e2;
+  --success: #22c55e;
+}
+
+body.dark-mode {
+  /* Modo Escuro */
+  --bg-dashboard: #111827;
+  --bg-sidebar: #1f2937;
+  --bg-chat-container: #111827;
+  --bg-chat-input: #1f2937;
+  --card-bg: #1f2937;
+  
+  --text-main: #f9fafb;
+  --text-muted: #9ca3af;
+  
+  --input-bg: #374151;
+  --input-border: #4b5563;
+  
+  --sidebar-active: #374151;
+
+  --bubble-user: #2563eb;
+  --bubble-model: #374151;
+  --bubble-model-text: #f9fafb;
+  
+  --danger: #ef4444;
+  --danger-light: rgba(239, 68, 68, 0.1);
+}
+
+/* 2. LAYOUT PRINCIPAL */
+.dashboard-container {
+  display: flex;
+  height: 100vh;
+  background-color: var(--bg-dashboard);
+  color: var(--text-main);
+  transition: all 0.3s ease;
+}
+
+.main-content {
+  flex-grow: 1;
+  padding: 40px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* 3. SIDEBAR (NAVBAR) */
+.sidebar {
+  width: 260px;
+  background-color: var(--bg-sidebar);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--input-border);
+  transition: all 0.3s ease;
+}
+
+.logo-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--primary-color);
+}
+
+.theme-toggle-btn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  transition: 0.2s;
+}
+
+.theme-toggle-btn:hover {
+  background-color: var(--sidebar-active);
+  color: var(--primary-color);
+}
+
+.menu-items {
+  flex-grow: 1;
+}
+
+.menu-items button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  border-radius: 10px;
+  margin-bottom: 8px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.menu-items button:hover {
+  background-color: var(--sidebar-active);
+  color: var(--text-main);
+}
+
+.menu-items button.active {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.logout-btn {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: none;
+  border: none;
+  color: var(--danger);
+  cursor: pointer;
+  font-weight: 600;
+}
+
+/* 4. CHAT INTERFACE */
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 200px);
+  background: var(--bg-chat-container);
+  border-radius: 16px;
+  border: 1px solid var(--input-border);
+  overflow: hidden;
+}
+
+.chat-messages {
+  flex: 1;
+  padding: 24px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.message-bubble {
+  max-width: 75%;
+  padding: 14px 18px;
+  border-radius: 18px;
+  font-size: 14.5px;
+  line-height: 1.6;
+}
+
+.message-bubble.user {
+  align-self: flex-end;
+  background: var(--bubble-user);
+  color: white;
+  border-bottom-right-radius: 4px;
+}
+
+.message-bubble.model {
+  align-self: flex-start;
+  background: var(--bubble-model);
+  color: var(--bubble-model-text);
+  border-bottom-left-radius: 4px;
+}
+
+.chat-input-area {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  background: var(--bg-chat-input);
+  gap: 12px;
+  border-top: 1px solid var(--input-border);
+}
+
+.chat-textarea-auto {
+  flex: 1;
+  padding: 12px 16px;
+  border: 1px solid var(--input-border);
+  border-radius: 12px;
+  outline: none;
+  resize: none;
+  font-family: inherit;
+  font-size: 14px;
+  background: var(--input-bg);
+  color: var(--text-main);
+  min-height: 45px;
+  max-height: 150px;
+  transition: border-color 0.2s;
+}
+
+.chat-textarea-auto:focus {
+  border-color: var(--primary-color);
+}
+
+.send-btn {
+  flex-shrink: 0;
+  height: 45px;
+  width: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.2s;
+}
+
+.send-btn:hover:not(:disabled) {
+  background-color: var(--primary-hover);
+  transform: scale(1.05);
+}
+
+.send-btn:disabled {
+  background-color: var(--text-muted);
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.message-content ul, 
+.message-content ol {
+  padding-left: 1.5rem;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.message-content li {
+  margin-bottom: 5px;
+}
+
+.message-content ul ul, 
+.message-content ol ol,
+.message-content ul ol,
+.message-content ol ul {
+  padding-left: 1.2rem;
+}
+
+/* 5. FERRAMENTAS (Resumir, Gerar, etc) */
+
+/* Cabeçalho de cada coluna (Label + Botões) */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+/* Grupo de botões de ação do resultado */
+.output-actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* Botões de ação circulares e discretos */
+.btn-icon-action {
+  background: var(--bg-sidebar);
+  border: 1px solid var(--input-border);
+  color: var(--text-muted);
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-icon-action:hover {
+  background: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+}
+
+.btn-icon-action.delete:hover {
+  background: var(--danger);
+  border-color: var(--danger);
+}
+
+.btn-icon-small {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  border-radius: 4px;
+}
+
+.btn-icon-small:hover {
+  color: var(--danger);
+  background: var(--danger-light);
+}
+
+/* Estilização extra para o Markdown dentro do resultado */
+.result-text-markdown {
+  color: var(--text-main);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.result-text-markdown p {
+  margin-bottom: 12px;
+}
+
+/* Container que divide em duas colunas */
+.tools-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Divide a tela em duas metades */
+  gap: 24px;
+  height: calc(100vh - 220px); /* Ocupa o restante da tela disponível */
+  margin-top: 10px;
+}
+
+/* Colunas individuais (Entrada e Saída) */
+.tool-input-section, 
+.tool-output-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  height: 100%;
+}
+
+/* O Textarea da esquerda */
+.tool-textarea-split {
+  flex: 1; /* Faz ele crescer para ocupar o espaço vertical */
+  width: 100%;
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid var(--input-border);
+  background-color: var(--card-bg);
+  color: var(--text-main);
+  outline: none;
+  resize: none; /* Desativamos o resize manual para não quebrar o layout */
+  font-family: inherit;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+/* Card do resultado na direita */
+.output-card {
+  flex: 1;
+  background-color: var(--card-bg);
+  border-radius: 12px;
+  border: 1px solid var(--input-border);
+  border-left: 5px solid var(--primary-color); /* Mantém o destaque lateral */
+  padding: 24px;
+  overflow-y: auto; /* Permite scroll apenas dentro do resultado */
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* Labels "Entrada" e "Resultado" */
+.section-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Botão de executar dentro da ferramenta */
+.btn-execute-tool {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 14px;
+  border-radius: 10px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: background 0.2s;
+}
+
+.btn-execute-tool:hover:not(:disabled) {
+  background-color: var(--primary-hover);
+}
+
+.btn-execute-tool:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Responsividade: Se a tela for pequena (celular/tablet), volta a ficar um embaixo do outro */
+@media (max-width: 1024px) {
+  .tools-grid {
+    grid-template-columns: 1fr;
+    height: auto;
+    overflow-y: visible;
+  }
+  
+  .tool-textarea-split {
+    height: 250px;
+    flex: none;
+  }
+}
+
+/* 6. COMPONENTES EXTRA (Toasts e Botões) */
+.btn-clear-chat {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--danger-light);
+  color: var(--danger);
+  border: 1px solid var(--danger);
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.confirm-toast-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 4px;
+}
+
+.confirm-toast-container strong {
+  font-size: 16px;
+  display: block;
+  margin-bottom: 8px;
+  color: var(--text-main);
+}
+
+.confirm-toast-container p {
+  font-size: 14px;
+  margin-bottom: 20px;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.toast-button-group {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  width: 100%;
+}
+
+.btn-toast-confirm, 
+.btn-toast-cancel {
+  flex: 1;
+  min-width: 100px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  color: white !important;
+  transition: transform 0.1s, opacity 0.2s;
+}
+
+.btn-toast-confirm {
+  background-color: #22c55e !important;
+}
+
+.btn-toast-cancel {
+  background-color: #ef4444 !important;
+}
+
+.btn-toast-confirm:hover, 
+.btn-toast-cancel:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.btn-toast-confirm:active, 
+.btn-toast-cancel:active {
+  transform: translateY(0);
+}
+
+/* 7. UTILITÁRIOS */
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.empty-chat {
+  text-align: center;
+  color: var(--text-muted);
+  margin-top: 20px;
+}
