@@ -50,7 +50,7 @@ Crie um arquivo *.env* na raiz do projeto e adicione suas credenciais:
     REACT_APP_GROQ_API_KEY=sua_chave_groq
     ...
 
-4. **Inicie o servidor local:**
+5. **Inicie o servidor local:**
 
     npm start
 
